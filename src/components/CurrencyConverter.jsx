@@ -21,8 +21,30 @@ const CurrencyConverter = () => {
   }, [fromCurrency]);
 
   useEffect(() => {
-    const converted = exchangeRate[toCurrency];
-  }, []);
+    const conversionRate = exchangeRate[toCurrency];
+    if (conversionRate) {
+      const converted = amount * conversionRate;
+      setConvertedAmount(converted.toFixed(2));
+    }
+  }, [amount, fromCurrency, toCurrency, exchangeRate]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    switch (name) {
+      case "amount":
+        setAmount(value);
+        break;
+
+      case "fromCurrency":
+        setFromCurrency(value);
+        break;
+
+      case "toCurrency":
+        setToCurrency(value);
+        break;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -48,7 +70,7 @@ const CurrencyConverter = () => {
               name="amount"
               className="w-full border border-gray-200 p-2 rounded"
               value={amount}
-              //   onChange={handleChange}
+              onChange={handleChange}
             />
           </div>
           <div className="flex flex-col mb-4 w-1/3">
@@ -62,7 +84,7 @@ const CurrencyConverter = () => {
               className="w-full border border-gray-200 p-2 rounded"
               name="fromCurrency"
               value={fromCurrency}
-              //   onChange={handleChange}
+              onChange={handleChange}
             >
               {exchangeRate &&
                 Object.keys(exchangeRate).map((currency) => (
@@ -83,7 +105,7 @@ const CurrencyConverter = () => {
               className="w-full border border-gray-200 p-2 rounded"
               name="toCurrency"
               value={toCurrency}
-              //   onChange={handleChange}
+              onChange={handleChange}
             >
               {exchangeRate &&
                 Object.keys(exchangeRate).map((currency) => (
