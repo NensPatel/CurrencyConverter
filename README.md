@@ -1,6 +1,6 @@
 # Live Demo
 
-currency-converter-taupe-tau.vercel.app
+https://currency-converter-taupe-tau.vercel.app
 
 # Getting Started with Create React App
 
